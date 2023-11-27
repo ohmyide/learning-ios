@@ -49,14 +49,67 @@ int main(int argc, const char * argv[]) {
 - main.m：程序中的唯一一个源文件，编译后为.o 目标文件 main.o
 - @"Hello, World!" 是一个 OC 字符，不是 C 语言的字符，用 @ 区分
 
+打印格式符：
+```
+int age = 20;
+NSLog(@"My age is %i and height is %.2f", age, 1.83f);
+
+```
+
+知识点：
+- %i表示接收整型数据
+- %f表示接收浮点型数据，%.2f表示保留2位小数
+
+知识点 import：
+- 系统自带导入：#import <...>
+- 自己创建的文件：#import "..." 
+
 
 ## 类
 
+类的组成文件 .h 和 .m：
+- .h：类的声明文件，用于声明成员变量、方法。类的声明使用关键字@interface和@end。
+- .m：类的实现文件，用于实现.h中声明的方法。类的实现使用关键字@implementation和@end。
+
 成员变量的常用作用域有3种：
-1> @public 全局都可以访问
-2> @protected 只能在类内部和子类中访问
+1> @public 全局都可以访问（在.h中声明的所有方法作用域都是public类型，不能更改）
+2> @protected 只能在类内部和子类中访问（默认）
 3> @private 只能在类内部访问
 
 方法：
 + 表示类方法(静态方法)
 - 表示对象方法(动态方法)
+
+```
+#import <Foundation/Foundation.h>
+#import "Student.h"
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // insert code here...
+        NSLog(@"Hello, World!");
+        int age = 18;
+        NSLog(@"My age is %i and height is %.2f", age, 1.83f);
+//        等同于 Student *stu = [Student new];
+        Student *stu = [[Student alloc] init];
+//        OC是方法调用是用中括号[ ]，方法调用者写在括号左侧，方法名写在括号右侧，中间留点空格。因此上面是调用了Student类的静态方法alloc。
+        
+        stu -> no = 101;
+        [stu setAge: 28];
+        [stu setAge:18 andHeight:183.1];
+        
+        int no = stu->no;
+        float h = [stu height];
+        
+        NSLog(@"result no is %i and height is %f", no, h);
+//        oc  不支持垃圾回收，手动用 release 释放
+        [stu release];
+    }
+    return 0;
+}
+
+
+```
+
+
+NSString为类，它实例化后即是字符串对象。在OC中，NSString表示不可变字符串，可变字符串用NSMutableString表示。
