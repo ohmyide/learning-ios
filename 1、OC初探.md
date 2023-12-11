@@ -99,6 +99,9 @@ int main(int argc, const char * argv[]) {
         [stu setAge:18 andHeight:183.1];
         
         int no = stu->no;
+
+        // 等价于 stu.age  点语法并不是直接访问stu对象的height，而是编译器遇到点语法展开成 [stu height]  OC点语法的本质是方法调用，不是直接访问成员变量。至于这个点语法代表的是get方法还是set方法，那就取决于你是取值还是设值，取值就是get方法(如第10行代码)，设值就是set方法(如第7行代码)。
+        
         float h = [stu height];
         
         NSLog(@"result no is %i and height is %f", no, h);
@@ -113,3 +116,7 @@ int main(int argc, const char * argv[]) {
 
 
 NSString为类，它实例化后即是字符串对象。在OC中，NSString表示不可变字符串，可变字符串用NSMutableString表示。
+
+
+## 点语法
+
